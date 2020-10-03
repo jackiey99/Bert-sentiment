@@ -21,7 +21,7 @@ def run():
     )
 
     df_train = df_train.reset_index(drop=True)
-    df_valid = df_valid.reset_idex(drop=True)
+    df_valid = df_valid.reset_index(drop=True)
 
     train_dataset = dataset.BERTDataset(
         review=df_train.review.values, target=df_train.sentiment.values
@@ -32,11 +32,11 @@ def run():
     )
 
     valid_dataset = dataset.BERTDataset(
-        review=valid_dataset.review.values, target=df_valid.sentiment.values
+        review=df_valid.review.values, target=df_valid.sentiment.values
     )
 
-    valid_data_loader = torch.util.data.DataLoader(
-        trian_dataset, batch_size=config.TRAIN_BATCH_SIZE, num_workers=4
+    valid_data_loader = torch.utils.data.DataLoader(
+        train_dataset, batch_size=config.TRAIN_BATCH_SIZE, num_workers=4
     )
 
     device = torch.device(config.DEVICE)
@@ -63,7 +63,7 @@ def run():
     num_train_steps = int(len(df_train) / config.TRAIN_BATCH_SIZE * config.EPOCHS)
     optimizer = AdamW(optimizer_parameters, lr=3e-5)
     scheduler = get_linear_schedule_with_warmup(
-        optimizer, num_warmup_steps=0, num_train_steps=num_train_steps
+        optimizer, num_warmup_steps=0, num_training_steps=num_train_steps
     )
 
     best_accuracy = 0

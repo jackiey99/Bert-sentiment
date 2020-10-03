@@ -1,6 +1,6 @@
 import transformers
 
-DEVICE = "cuda"
+DEVICE = "cpu"
 MAX_LEN = 64
 TRAIN_BATCH_SIZE = 8
 VALID_BATCH_SIZE = 4
